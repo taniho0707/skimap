@@ -1,0 +1,55 @@
+version: "3"
+services:
+  app:
+    container_name: skimap
+    build: ./docker/app
+    ports:
+      - 3010:8080
+    volumes:
+      - ./app:/app
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: Asia/Tokyo
+    command: yarn serve
+    networks:
+      - default
+
+  api:
+    container_name: skimap_api
+    build: ./docker/api
+    ports:
+      - 3012:3000
+    volumes:
+      - ./api:/api
+    tty: true
+    environment:
+      CHOKIDAR_USEPOLLING: 1
+      TZ: Asia/Tokyo
+    depends_on:
+      - db
+    command: yarn nodemon
+    networks:
+      - default
+
+  db:
+    container_name: skimap_db
+    build: ./docker/db
+    image: latest
+    ports:
+      - 3011:3306
+    volumes:
+      - ./db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./db/init_db:/docker-entrypoint-initdb.d
+      - ./db/data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ="Asia/Tokyo"
+    networks:
+      - default
+
+networks:
+  default:
