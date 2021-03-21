@@ -11,7 +11,6 @@ services:
     tty: true
     environment:
       TZ: Asia/Tokyo
-    command: yarn serve
     networks:
       - default
 
@@ -28,7 +27,6 @@ services:
       TZ: Asia/Tokyo
     depends_on:
       - db
-    command: yarn nodemon
     networks:
       - default
 
