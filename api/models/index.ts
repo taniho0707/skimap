@@ -1,7 +1,7 @@
 import log4js from 'log4js'
 import { Sequelize } from 'sequelize-typescript'
 import { dbSetting } from './settings/db_settings'
-import { Skimap } from './skimap'
+import { Prefecture } from './prefecture'
 
 const logger = log4js.getLogger('mysql')
 
@@ -18,7 +18,7 @@ export default new Sequelize({
   },
   define: { timestamps: false, underscored: true },
   pool: { max: 5, min: 0, idle: 10000, acquire: 30000 },
-  models: [Skimap],
+  models: [Prefecture],
 })
 
-export { Skimap }
+export { Prefecture }

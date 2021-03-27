@@ -9,4 +9,4 @@ app.use(cors())
 
 app.use('/api', router)
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`skimap api listening on port ${port}!`));

@@ -1,8 +1,8 @@
-import Express from 'express';
-import tests from './tests/testsController';
+import { Router } from 'express';
+import Prefectures from './prefecture/prefectureController';
 
-const router = Express.Router();
+const router = Router();
 
-router.use('/tests', tests);
+router.use('/prefecture', Prefectures);
 
 export default router;

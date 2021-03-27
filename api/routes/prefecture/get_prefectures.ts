@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { Handler } from '../../core/handler';
 import { NO_DATA_EXISTS } from '../../constants/error'
-import { Skimap } from '../../models/index'
+import { Prefecture } from '../../models/index'
 
-export class GetTests {
+export class GetPrefectures {
   handler: Handler;
 
   constructor(req: Request, res: Response) {
@@ -14,7 +14,7 @@ export class GetTests {
    * メイン処理
    */
   async main() {
-    const data = this.getTests();
+    const data = await this.getPrefectures();
     
     if (!data) {
       return this.handler.error(NO_DATA_EXISTS);
@@ -26,9 +26,9 @@ export class GetTests {
   /**
    * メッセージを返す
    */
-  getTests() {
-    return Skimap.findAll({
-      attributes: ['id', 'name', 'description'],
+  getPrefectures() {
+    return Prefecture.findAll({
+      attributes: ['id', 'name'],
     });
   }
 }
