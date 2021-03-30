@@ -4,6 +4,6 @@ ENV NODE_PATH /usr/local/lib/node_modules
 
 WORKDIR /api
 
-RUN yarn
+RUN yarn install --production=false
 
 ENTRYPOINT ["yarn", "test"]
