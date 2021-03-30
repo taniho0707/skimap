@@ -42,4 +42,4 @@ jobs:
       - name: docker-compose test run
         run: |
             docker-compose -f docker-compose-test.yml build
-            docker-compose -f docker-compose-test.yml up
+            docker-compose -f docker-compose-test.yml up --exit-code-from skimap_api_test
