@@ -41,4 +41,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: docker-compose test run
         run: |
-            docker-compose -f docker-compose-test.yml up --exit-code-from skimap_api_test
+            docker-compose -f docker-compose-test.yml up --exit-code-from api
