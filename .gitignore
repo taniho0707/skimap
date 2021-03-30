@@ -107,3 +107,4 @@ dist
 .env
 
 db/data
+db/data_test

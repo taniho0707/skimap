@@ -1,0 +1,39 @@
+version: "3"
+services:
+  api:
+    container_name: skimap_api_test
+    build: ./docker/api_test
+    ports:
+      - 3012:3000
+    volumes:
+      - ./api:/api
+    tty: true
+    environment:
+      CHOKIDAR_USEPOLLING: 1
+      TZ: Asia/Tokyo
+    depends_on:
+      - db
+    networks:
+      - default
+
+  db:
+    container_name: skimap_db_test
+    build: ./docker/db
+    image: latest
+    ports:
+      - 3011:3306
+    volumes:
+      - ./db/conf/my.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./db/init_db_test:/docker-entrypoint-initdb.d
+      - ./db/data_test:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ="Asia/Tokyo"
+    networks:
+      - default
+
+networks:
+  default:
