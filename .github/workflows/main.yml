@@ -25,6 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: create env file
+        run: |
+            echo "MYSQL_DATABASE=skimap_db\nMYSQL_USER=skimap\nMYSQL_PASSWORD=skimap\nMYSQL_ROOT_PASSWORD=skimap" > .env
+            echo "MYSQL_DATABASE=skimap_db\nMYSQL_USER=skimap\nMYSQL_PASSWORD=skimap\nMYSQL_ROOT_PASSWORD=skimap" > api/models/settings/.env
+
       # Runs a set of commands using the runners shell
       - name: docker-compose test run
         run: |
