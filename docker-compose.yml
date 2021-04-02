@@ -29,6 +29,7 @@ services:
       - db
     networks:
       - default
+    command: /bin/sh -c "yarn install --production=false && yarn nodemon"
 
   db:
     container_name: skimap_db

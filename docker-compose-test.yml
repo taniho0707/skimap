@@ -1,6 +1,6 @@
 version: "3"
 services:
-  api:
+  api_test:
     container_name: skimap_api_test
     build: ./docker/api_test
     ports:
@@ -12,11 +12,14 @@ services:
       CHOKIDAR_USEPOLLING: 1
       TZ: Asia/Tokyo
     depends_on:
-      - db
+      - db_test
     networks:
       - default
+    command: /bin/sh -c "sleep 60 && yarn install && yarn test"
+    environment:
+     - NODE_TEST=1
 
-  db:
+  db_test:
     container_name: skimap_db_test
     build: ./docker/db
     image: latest

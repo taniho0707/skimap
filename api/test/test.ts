@@ -3,6 +3,7 @@ const app = require('../index');
 
 describe('GET /api/prefecture/1', function() {
     it('respond Hokkaido with json', function(done) {
+        this.timeout(60000);
         request(app)
             .get('/api/prefecture/1')
             .set('Accept', 'application/json')

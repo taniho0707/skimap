@@ -9,7 +9,7 @@ export default new Sequelize({
   dialect: 'mysql',
   timezone: '+09:00',
   port: 3306,
-  host: 'db',
+  host: process.env.NODE_TEST==='1' ? 'db_test' : 'db',
   username: dbSetting['user'],
   password: dbSetting['password'],
   database: dbSetting['database'],
