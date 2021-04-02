@@ -33,12 +33,13 @@ jobs:
             echo "MYSQL_USER=skimap" >> .env
             echo "MYSQL_PASSWORD=skimap" >> .env
             echo "MYSQL_ROOT_PASSWORD=skimap" >> .env
-            echo "MYSQL_DATABASE=skimap_db" > /api/models/settings/.env
-            echo "MYSQL_USER=skimap" >> /api/models/settings/.env
-            echo "MYSQL_PASSWORD=skimap" >> /api/models/settings/.env
-            echo "MYSQL_ROOT_PASSWORD=skimap" >> /api/models/settings/.env
+            echo "MYSQL_DATABASE=skimap_db" > api/models/settings/.env
+            echo "MYSQL_USER=skimap" >> api/models/settings/.env
+            echo "MYSQL_PASSWORD=skimap" >> api/models/settings/.env
+            echo "MYSQL_ROOT_PASSWORD=skimap" >> api/models/settings/.env
 
       # Runs a set of commands using the runners shell
       - name: docker-compose test run
         run: |
+            docker-compose -f docker-compose-test.yml build
             docker-compose -f docker-compose-test.yml up --exit-code-from api_test
