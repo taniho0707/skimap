@@ -21,3 +21,12 @@ export const NO_DATA_EXISTS: ErrorCode = {
   type: 'NO_DATA_EXISTS',
   message: 'No data exists.',
 };
+
+/**
+ * 重複データを追加しようとした場合のエラー
+ */
+ export const USER_EXISTS: ErrorCode = {
+  status: 400,
+  type: 'USER_EXISTS',
+  message: 'The username is already exists',
+};

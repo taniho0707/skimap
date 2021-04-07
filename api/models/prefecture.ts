@@ -5,7 +5,7 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
-} from 'sequelize-typescript'
+} from 'sequelize-typescript';
 
 @Table({
   modelName: 'prefecture',
@@ -14,8 +14,8 @@ import {
 export class Prefecture extends Model<Prefecture> {
   @PrimaryKey
   @Column(DataType.INTEGER)
-  readonly id!: number
+  readonly id!: number;
 
   @Column(DataType.STRING)
-  readonly name!: string
+  readonly name!: string;
 }

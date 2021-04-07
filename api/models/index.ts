@@ -1,9 +1,10 @@
-import log4js from 'log4js'
-import { Sequelize } from 'sequelize-typescript'
-import { dbSetting } from './settings/db_settings'
-import { Prefecture } from './prefecture'
+import log4js from 'log4js';
+import { Sequelize } from 'sequelize-typescript';
+import { dbSetting } from './settings/db_settings';
+import { Prefecture } from './prefecture';
+import { User } from './user';
 
-const logger = log4js.getLogger('mysql')
+const logger = log4js.getLogger('mysql');
 
 export default new Sequelize({
   dialect: 'mysql',
@@ -18,7 +19,7 @@ export default new Sequelize({
   },
   define: { timestamps: false, underscored: true },
   pool: { max: 5, min: 0, idle: 10000, acquire: 30000 },
-  models: [Prefecture],
+  models: [Prefecture, User],
 })
 
-export { Prefecture }
+export { Prefecture, User };
