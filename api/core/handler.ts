@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import { ErrorCode } from '../constants/error';
 
 type AddUserBody = {
-  name: string
-}
+  name: string,
+  email: string,
+};
 
 /**
  * APIのハンドリングをする機能
