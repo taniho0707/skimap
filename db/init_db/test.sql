@@ -7,9 +7,9 @@ GRANT ALL PRIVILEGES ON *.* TO 'skimap'@'%' WITH GRANT OPTION;
 
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
-  id int NOT NULL AUTO_INCREMENT primary key,
-  name varchar(30) NOT NULL,
-  email varchar(255),
+  id int UNIQUE NOT NULL AUTO_INCREMENT primary key,
+  name varchar(30) UNIQUE NOT NULL,
+  email varchar(255) UNIQUE,
   hash varchar(512)
 );
 
