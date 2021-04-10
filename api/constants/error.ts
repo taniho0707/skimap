@@ -30,3 +30,12 @@ export const NO_DATA_EXISTS: ErrorCode = {
   type: 'USER_EXISTS',
   message: 'The username is already exists',
 };
+
+/**
+ * 重複データを追加しようとした場合のエラー
+ */
+ export const AREA_EXISTS: ErrorCode = {
+  status: 400,
+  type: 'AREA_EXISTS',
+  message: 'The area is already exists',
+};

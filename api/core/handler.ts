@@ -1,11 +1,6 @@
 import { Request, Response } from 'express';
 import { ErrorCode } from '../constants/error';
 
-type AddUserBody = {
-  name: string,
-  email: string,
-};
-
 /**
  * APIのハンドリングをする機能
  */
@@ -26,7 +21,7 @@ export class Handler {
     this.res.status(error.status).send({ error: error });
   }
 
-  getBody(): AddUserBody {
+  getBody(): any {
     return this.req.body;
   }
 }

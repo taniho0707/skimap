@@ -64,7 +64,7 @@ id番号の都道府県名を返す
 
 ## Area
 
-### /api/area/id/:id
+### /api/area/:id
 
 GET
 
