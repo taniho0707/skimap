@@ -69,10 +69,12 @@ INSERT INTO prefecture (id, name) VALUES (47, '沖縄県');
 
 DROP TABLE IF EXISTS area;
 CREATE TABLE area (
-  id int NOT NULL AUTO_INCREMENT primary key,
+  id int UNIQUE NOT NULL AUTO_INCREMENT primary key,
   prefecture int NOT NULL,
-  area int NOT NULL,
-  official_url varchar(1024)
+  area_id int,
+  name varchar(256) UNIQUE NOT NULL,
+  fullname varchar(256) UNIQUE,
+  official_url varchar(1024) UNIQUE
 );
 
 DROP TABLE IF EXISTS record;

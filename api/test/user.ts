@@ -102,3 +102,138 @@ describe('API userのテスト', function() {
             });
     });
 });
+
+describe('API areaのテスト', function() {
+    it('/api/area/list はじめは空リスト', function(done) {
+        request(app)
+            .get('/api/area/list')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: []
+            });
+    });
+
+    it('/api/area/add 新規スキー場の追加', function(done) {
+        request(app)
+            .post('/api/area/add')
+            .send({
+                "name": "test_area",
+                "prefecture": 1,
+                "official_url": "http://example.com",
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
+
+    it('/api/area/list 新規スキー場が登録されていることを確認', function(done) {
+        request(app)
+            .get('/api/area/list')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: [
+                    {
+                        id: 1,
+                        name: "test_area"
+                    }
+                ]
+            });
+    });
+
+    it('/api/area/1 登録したスキー場の詳細を確認', function(done) {
+        request(app)
+            .get('/api/area/1')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    id: 1,
+                    prefecture: 1,
+                    area_id: null,
+                    name: "test_area",
+                    fullname: null,
+                    official_url: "http://example.com",
+                }
+            });
+    });
+
+    it('/api/area/update スキー場を更新', function(done) {
+        request(app)
+            .post('/api/area/update')
+            .send({
+                id: 1,
+                official_url: "http://example.org",
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
+
+    it('/api/area/1 更新したスキー場の詳細を確認', function(done) {
+        request(app)
+            .get('/api/area/1')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    id: 1,
+                    prefecture: 1,
+                    area_id: null,
+                    name: "test_area",
+                    fullname: null,
+                    official_url: "http://example.org",
+                }
+            });
+    });
+
+    it('/api/area/remove スキー場を削除', function(done) {
+        request(app)
+            .post('/api/area/remove')
+            .send({
+                "id": 1
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
+
+    it('/api/area/list スキー場が削除されていることを確認', function(done) {
+        request(app)
+            .get('/api/area/list')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: []
+            });
+    });
+
+    it('/api/area/1 存在しないスキー場の詳細を要求するとエラーが返ってくることを確認', function(done) {
+        request(app)
+            .get('/api/area/1')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(400, done);
+    });
+});
