@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1">
+	<trk>
+		<name>2018/03/11 午前1:00:00</name>
+		<trkseg>
+			<trkpt lat="30" lon="140"><ele>100</ele><time>2018-03-11T01:00:00Z</time></trkpt>
+		</trkseg>
+	</trk>
+</gpx>

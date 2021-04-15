@@ -4,6 +4,7 @@ import { dbSetting } from './settings/db_settings';
 import { Prefecture } from './prefecture';
 import { User } from './user';
 import { Area } from './area';
+import { Gpslog } from './gpslog';
 
 const logger = log4js.getLogger('mysql');
 
@@ -20,7 +21,7 @@ export default new Sequelize({
   },
   define: { timestamps: false, underscored: true },
   pool: { max: 5, min: 0, idle: 10000, acquire: 30000 },
-  models: [Prefecture, User, Area],
+  models: [Prefecture, User, Area, Gpslog],
 })
 
-export { Prefecture, User, Area };
+export { Prefecture, User, Area, Gpslog };
