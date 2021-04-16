@@ -99,5 +99,6 @@ CREATE TABLE gpslog (
   record_id int,
   area_id int,
   user_id int,
-  date DATE
+  date DATE,
+  geojson MEDIUMTEXT
 );
