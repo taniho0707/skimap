@@ -37,4 +37,7 @@ export class Gpslog extends Model {
 
   @Column(DataType.DATE)
   date!: Date;
+
+  @Column(DataType.STRING)
+  geojson!: string;
 }

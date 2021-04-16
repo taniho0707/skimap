@@ -6,6 +6,9 @@ import { Gpslog } from '../../models/index';
 import convert from 'xml-js';
 import fs from 'fs';
 
+const togeojson = require('@mapbox/togeojson');
+import xmldom from 'xmldom';
+
 export class AddGpslog {
   handler: Handler;
 
@@ -26,12 +29,16 @@ export class AddGpslog {
     let date_raw: any = gpx_raw.gpx.trk.name._text.slice(0, 10);
     let filedate: Date = new Date(date_raw);
 
+    let gpx_xml = new xmldom.DOMParser().parseFromString(gpx_data);
+    let geojson_converted = togeojson.gpx(gpx_xml);
+
     Gpslog.create({
       filepath: filepath,
       filename: this.handler.getFile().originalname,
       area_id: jsondata.area_id,
       user_id: jsondata.user_id,
       date: filedate,
+      geojson: JSON.stringify(geojson_converted),
     })
       .then((Gpslog) => {
         this.handler.json({ success: true });
