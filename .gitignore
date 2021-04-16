@@ -109,3 +109,4 @@ dist
 db/data
 db/data_test
 rest-client
+api/uploads

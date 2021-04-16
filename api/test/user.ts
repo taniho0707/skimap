@@ -237,3 +237,80 @@ describe('API areaのテスト', function() {
             .expect(400, done);
     });
 });
+
+describe('API gpslogのテスト', function() {
+    it('/api/gpslog/list はじめは空リスト', function(done) {
+        request(app)
+            .get('/api/gpslog/list')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: []
+            });
+    });
+
+    it('/api/gpslog/add 新規Gpslogの追加', function(done) {
+        request(app)
+            .post('/api/gpslog/add')
+            .field("json", '{\
+                "area_id": 1,\
+                "user_id": 1,\
+                "date": "2018-03-11"\
+            }')
+            .attach("file", "./test/testfile1.gpx")
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
+
+    it('/api/gpslog/list 新規Gpslogが登録されていることを確認', function(done) {
+        request(app)
+            .get('/api/gpslog/list')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: [
+                    {
+                        id: 1,
+                        area_id: 1,
+                        user_id: 1,
+                        date: '2018-03-11'
+                    }
+                ]
+            });
+    });
+
+    it('/api/gpslog/remove Gpslogを削除', function(done) {
+        request(app)
+            .post('/api/gpslog/remove')
+            .send({
+                "id": 1
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
+
+    it('/api/gpslog/list Gpslogが削除されていることを確認', function(done) {
+        request(app)
+            .get('/api/gpslog/list')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: []
+            });
+    });
+});

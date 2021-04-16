@@ -24,4 +24,8 @@ export class Handler {
   getBody(): any {
     return this.req.body;
   }
+
+  getFile(): any {
+    return this.req.file;
+  }
 }
