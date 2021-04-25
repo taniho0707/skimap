@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Handler } from '../../core/handler';
 import { NO_DATA_EXISTS } from '../../constants/error'
-import { Gpslog } from '../../models/index'
+import { Gpslog, User, Area } from '../../models/index'
 
 export class GetGpslog {
   handler: Handler;
@@ -15,7 +15,7 @@ export class GetGpslog {
    */
   async main() {
     const data = await this.getGpslog();
-    
+
     if (!data) {
       return this.handler.error(NO_DATA_EXISTS);
     }
@@ -27,8 +27,15 @@ export class GetGpslog {
    * メッセージを返す
    */
   getGpslog() {
+    // return Gpslog.findAll({
+    //   attributes: ['id', 'area_id', 'user_id', 'date']
+    // });
     return Gpslog.findAll({
-      attributes: ['id', 'area_id', 'user_id', 'date']
+      attributes: ['id', 'date'],
+      include: [
+        User,
+        Area,
+      ],
     });
   }
 }

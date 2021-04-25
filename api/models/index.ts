@@ -12,7 +12,7 @@ export default new Sequelize({
   dialect: 'mysql',
   timezone: '+09:00',
   port: 3306,
-  host: process.env.NODE_TEST==='1' ? 'db_test' : 'db',
+  host: process.env.NODE_TEST === '1' ? 'db_test' : 'db',
   username: dbSetting['user'],
   password: dbSetting['password'],
   database: dbSetting['database'],
@@ -22,6 +22,19 @@ export default new Sequelize({
   define: { timestamps: false, underscored: true },
   pool: { max: 5, min: 0, idle: 10000, acquire: 30000 },
   models: [Prefecture, User, Area, Gpslog],
-})
+});
+
+User.hasMany(Gpslog, {
+  foreignKey: 'user_id',
+});
+Area.hasMany(Gpslog, {
+  foreignKey: 'area_id',
+});
+Gpslog.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+Gpslog.belongsTo(Area, {
+  foreignKey: 'area_id',
+});
 
 export { Prefecture, User, Area, Gpslog };

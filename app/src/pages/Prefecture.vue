@@ -5,16 +5,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import { PrefectureType, prefectureModule } from '../store/modules/prefecture';
+import { Vue, Component } from "vue-property-decorator";
+import { PrefectureType, prefectureModule } from "../store/modules/prefecture";
 
 @Component
 export default class Prefecture extends Vue {
   prefectures: PrefectureType[] = [];
 
   headers = [
-    { text: 'id', align: 'right', value: 'id' },
-    { text: 'name', align: 'left', value: 'name' },
+    { text: "id", align: "right", value: "id" },
+    { text: "name", align: "left", value: "name" },
   ];
 
   async created() {
