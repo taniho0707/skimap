@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <div class="div-head">Logo</div>
+    <div class="div-head">
+      <img src="/title.png" class="head-title" />
+    </div>
     <div class="div-body">
       <div class="div-left-search">
         <div class="div-left-date">
@@ -78,6 +80,11 @@ export default class Main extends Vue {}
 </script>
 
 <style>
+.head-title {
+  height: 4em;
+  float: left;
+}
+
 .div-head {
   height: 4em;
 }
