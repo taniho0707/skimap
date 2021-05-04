@@ -1,17 +1,39 @@
 {
     "rules": {
-        "semi": ["error", "always"],
-        "semi-spacing": ["error", {"after": true, "before": false}],
-        "semi-style": ["error", "last"],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "semi-spacing": [
+            "error",
+            {
+                "after": true,
+                "before": false
+            }
+        ],
+        "semi-style": [
+            "error",
+            "last"
+        ],
         "no-extra-semi": "error",
         "no-unexpected-multiline": "error",
         "no-unreachable": "error"
     },
     "parserOptions": {
+        "parser": "@typescript-eslint/parser",
         "sourceType": "module",
         "ecmaVersion": 6,
         "ecmaFeatures": {
             "jsx": true
         }
-    }
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "vue"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/recommended",
+        "@vue/typescript"
+    ]
 }

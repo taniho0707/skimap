@@ -1,0 +1,311 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "App",
+  "steps": [
+    {
+      "file": "docker-compose.yml",
+      "description": "appコンテナの設定はこちらです。\r\n\r\n他コンテナと同じように、コンテナの定義は`./docker/app/Dockerfile`に記載されているので、見ていきます。",
+      "line": 15,
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 16,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "docker/app/Dockerfile",
+      "description": "コンテナを作成する際に実行するコマンドを指定しています。\r\n\r\n`yarn global add @vue/cli`\r\n\r\nコマンドを実行し、動作のために必要なパッケージを追加でインストールしています。",
+      "line": 3
+    },
+    {
+      "file": "docker/app/Dockerfile",
+      "description": "コンテナが起動すると、`yarn serve`コマンドが実行されます。\r\n\r\nそれでは次に、`package.json`を見ていきます。",
+      "line": 9
+    },
+    {
+      "file": "app/package.json",
+      "description": "コンテナ起動時に実行されるコマンドは`yarn serve`でした。\r\n内部では、`vue-cli-service serve`が実行されることになります。\r\n\r\nこのコマンドはVue CLIによって提供されており、自動的に`src/main.ts`が実行されることになります。\r\n\r\n見ていきます。",
+      "line": 6
+    },
+    {
+      "file": "app/src/main.ts",
+      "description": "`public/index.html`の`<div id=\"app\">`に、`App.vue`を表示します。\r\n\r\nただし、オプションとして`router`、`vuetify`、`store`を指定していることを確認してください。 \\\r\n実際のレンダリングは`router`にて行うことになります。\r\n\r\nまずは`App.vue`を見てみます。",
+      "line": 15,
+      "selection": {
+        "start": {
+          "line": 10,
+          "character": 1
+        },
+        "end": {
+          "line": 16,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/App.vue",
+      "description": "これがVueのファイルです。\r\nHTML、スタイルシート、(ここには記載されてないですが)スクリプトを記述することが出来ます。",
+      "line": 1
+    },
+    {
+      "file": "app/src/App.vue",
+      "description": "`<router-view>`は、`./router/index.ts`で処理した内容が表示されることになります。\r\n\r\n`./router/index.ts`を見ていきます。",
+      "line": 4
+    },
+    {
+      "file": "app/src/router/index.ts",
+      "description": "この部分でルーティングを定義しています。\r\n\r\n今回はMainコンポーネントを見ていきます。\\\r\n`/`、つまり`http://localhost:3010/`にアクセスがあった場合、`../pages/Main.vue`を描画することになります。",
+      "line": 35,
+      "selection": {
+        "start": {
+          "line": 27,
+          "character": 1
+        },
+        "end": {
+          "line": 36,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/router/index.ts",
+      "description": "ちなみに、ここで指定されているコンポーネントがVueで使用できるようになります。\r\n\r\n例えば、`<l-map>`タグを書くことで、その部分に`LMap`を埋め込むことが出来ます。",
+      "line": 25,
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 1
+        },
+        "end": {
+          "line": 26,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/Main.vue",
+      "description": "このファイルで、今回のskimapでブラウザに表示される内容の一番上位部分を記載してあります。",
+      "line": 1
+    },
+    {
+      "file": "app/src/pages/Main.vue",
+      "description": "`Main.vue`ファイルの中で使用する追加のコンポーネントを設定しています。\r\n\r\n今回は`GpslogList.vue`を詳しく見ていきます。",
+      "line": 78,
+      "selection": {
+        "start": {
+          "line": 73,
+          "character": 1
+        },
+        "end": {
+          "line": 79,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/Main.vue",
+      "description": "(Main.vueの中で`<gpslog-list>`タグを使用していることを覚えておいてください。)",
+      "line": 22
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "これが`GpslogList`コンポーネントの本体です。\r\n\r\n`name = \"gpslog-list\"`と指定してあることで、`Main.vue`から`<gpslog-list>`タグが使えるようになっています。\r\n",
+      "line": 15
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "`<gpslog-list>`はこの内容に置き換えられます。\r\n\r\n中身は`<v-data-table>`だったというわけですね。\r\n(`v-data-table`は、`vuetify`で提供されているコンポーネントです。詳しくはそちらで調べてみてください。)\r\n\r\nここで`v-data-table`に表示する内容やイベントが、`headers`、`gpslog`、`clickRow`というパラメータに設定されています。",
+      "line": 4,
+      "selection": {
+        "start": {
+          "line": 2,
+          "character": 1
+        },
+        "end": {
+          "line": 5,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "例えば`headers`はこちらで定義されています。",
+      "line": 21,
+      "selection": {
+        "start": {
+          "line": 17,
+          "character": 1
+        },
+        "end": {
+          "line": 22,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "`gpslogs`はこちらで定義されています。\r\n\r\n中身は空リストですが、",
+      "line": 13
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "コンポーネント生成時に実行されるこの関数内で、`this.gpslogs`に取得した値を代入しています。\r\n\r\n値の取得は`gpsloglistModule`の`getGpsloglistAll()`関数で行っています。\r\n深掘りして見ていきます。",
+      "line": 31,
+      "selection": {
+        "start": {
+          "line": 28,
+          "character": 1
+        },
+        "end": {
+          "line": 32,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/store/modules/gpsloglist.ts",
+      "description": "これは、`Vuex`で使用するモジュールの定義です。\r\n(ユーザの手元で遷移するページ間で、パラメータを共有することが出来るようになります)",
+      "line": 31,
+      "selection": {
+        "start": {
+          "line": 30,
+          "character": 1
+        },
+        "end": {
+          "line": 32,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/store/modules/gpsloglist.ts",
+      "description": "ここにデータベースから読み出したGpslogの一覧を代入します。\r\n\r\n実は、`GpslogList.vue`から`getGpsloglistAll()`を呼び出した後、この`apiGpsloglist`変数を参照していました。",
+      "line": 32
+    },
+    {
+      "file": "app/src/store/modules/gpsloglist.ts",
+      "description": "Actionという処理をする関数です。\r\n\r\n`/gpslog/list`にGETアクセスを行い(このAPIはAPI編で確認したと思います)、取得したデータを成形し、`this.SET_API_GPSLOGLIST()`関数にデータを渡しています。",
+      "line": 58,
+      "selection": {
+        "start": {
+          "line": 44,
+          "character": 1
+        },
+        "end": {
+          "line": 59,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/store/modules/gpsloglist.ts",
+      "description": "こちらはMutationという処理をする関数です。\r\n\r\n与えられたデータを`this.apiGpsloglist`に代入しています。",
+      "line": 43,
+      "selection": {
+        "start": {
+          "line": 40,
+          "character": 1
+        },
+        "end": {
+          "line": 44,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "こうして、`GpslogList.vue`側で、データベースから読み出したGpslogデータを参照することが出来ます。",
+      "line": 30,
+      "selection": {
+        "start": {
+          "line": 30,
+          "character": 1
+        },
+        "end": {
+          "line": 31,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/GpslogList.vue",
+      "description": "次は、`v-data-table`で行がクリックされた場合の動作を読み解いていきます。\r\n\r\n`this.$store.dispatch()`で、`src/store/modules/`内で定義されている`Gpsloglist`モジュールの、`getGpslogById()`関数を発火します。",
+      "line": 26,
+      "selection": {
+        "start": {
+          "line": 23,
+          "character": 1
+        },
+        "end": {
+          "line": 27,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/store/modules/gpsloglist.ts",
+      "description": "発火されると、この関数が呼ばれ、Gpslogデータがロードされます。",
+      "line": 78,
+      "selection": {
+        "start": {
+          "line": 65,
+          "character": 1
+        },
+        "end": {
+          "line": 79,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/store/modules/gpsloglist.ts",
+      "description": "最終的に、読み出されたデータは`this.apiGpslogData`に代入され、",
+      "line": 62,
+      "selection": {
+        "start": {
+          "line": 62,
+          "character": 1
+        },
+        "end": {
+          "line": 63,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/GpsMap.vue",
+      "description": "……遠いところに来てしまいましたが、`GpsMap.vue`内で使われているパラメータが更新されます。\r\n\r\n`geojson()`関数では、`Gpsloglist`モジュールの`getApipGpslogData()`関数の戻り値を参照しています。 \\\r\n(`getApiGoslogData()`関数は`return this.apiGpslogData;`するだけの関数です。)\r\n\r\n`protected get geojson()`は`get`関数ですので、`geojson()`関数の中で使っているパラメータが変更された場合、自動的に`geojson()`を実行してくれます。",
+      "line": 43,
+      "selection": {
+        "start": {
+          "line": 39,
+          "character": 1
+        },
+        "end": {
+          "line": 44,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "app/src/pages/GpsMap.vue",
+      "description": "`<l-geo-json>`で表示する座標データに`geojson()`関数を渡しておくことで、動的に(参照先のgeojsonデータが更新される度に)値を読み込み直し、最新のGeojsonデータを表示できる仕組みになっています。",
+      "line": 15,
+      "selection": {
+        "start": {
+          "line": 15,
+          "character": 1
+        },
+        "end": {
+          "line": 16,
+          "character": 1
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Database",
+  "steps": [
+    {
+      "file": "docker-compose.yml",
+      "description": "起動時のコマンドにより自動的に `docker-compose.yml` が読み込まれます。\\\r\n`docker compose up`\r\n\r\nデータベースはdbコンテナとして準備しているため、まずはこの部分を解読していきます。",
+      "line": 34
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "コンテナ内のポート3306を、コンテナ外(つまりこのPC自体)のポート3011に割り当てています。\r\n外からアクセスする先は3011と思っておけば大丈夫です。",
+      "line": 38
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "ファイルを永続化させる設定です。\r\n\r\n- リポジトリ内の`./db/conf/my.cnf`ファイルを、コンテナ内の`/etc/mysql/conf.d/mysql.cnf`にリンクさせています。\r\n(`/etc/mysql/conf.d/mysql.cnf`はMySQLの設定ファイルです)\r\n- リポジトリ内の`./db/init_db`ファイルを、コンテナ内の`/docker-entrypoint-initdb.d`にリンクさせています。\r\n(`/docker-entrypoint-initdb.d`の中に置いたファイルは、mysql公式コンテナ起動時に実行されます)\r\n- リポジトリ内の`./db/data`ディレクトリを、コンテナ内の`/var/lib/mysql`にリンクさせています。\r\n(`/var/lib/mysql`はMySQLのデータ一式です)\r\n\r\n",
+      "line": 40
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "`./docker/db`内にある`Dockerfile`を使ってコンテナを作成します。\r\n\r\n次は`Dockerfile`を読んでみましょう。",
+      "line": 36
+    },
+    {
+      "file": "docker/db/Dockerfile",
+      "description": "Docker Hubにある`mysql`パッケージをベースにします。\r\n\r\n[Docker Hub | mysql](https://hub.docker.com/_/mysql)",
+      "line": 1
+    },
+    {
+      "file": "docker/db/Dockerfile",
+      "description": "コンテナ起動時に実行するコマンドを指定しています。\r\n\r\n`mysqld`\r\n\r\nこれにより、コンテナ起動時に自動的にMySQLが立ち上がります。\r\n\r\n次は、`docker-entrypoint-initdb.d`を読み解き、コンテナ起動時の処理を見ていきます。",
+      "line": 5
+    },
+    {
+      "file": "db/init_db/test.sql",
+      "description": "MySQL初回起動時には、データベースの初期化を行います。\r\n\r\nここではSQL構文は省略します。\r\n\r\nDatabase編のガイドは以上です。\r\n次はAPI編のガイドを薦めることを推奨します。",
+      "line": 1
+    }
+  ]
+}

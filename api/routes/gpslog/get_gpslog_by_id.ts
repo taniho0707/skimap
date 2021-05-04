@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Handler } from '../../core/handler';
 import { PARAMETER_INVALID, NO_DATA_EXISTS } from '../../constants/error';
-import { Gpslog } from '../../models/index';
+import { Gpslog, User, Area } from '../../models/index';
 
 type Params = {
     id: number
@@ -22,7 +22,7 @@ export class GetGpslogById {
         if (!this.params.id) {
             return this.handler.error(PARAMETER_INVALID);
         }
-        
+
         const data = await this.getGpslog();
 
         if (!data) {
@@ -37,6 +37,10 @@ export class GetGpslogById {
             where: {
                 id: this.params.id,
             },
+            include: [
+                User,
+                Area,
+            ]
         })
     }
 }

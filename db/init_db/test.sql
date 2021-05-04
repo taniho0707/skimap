@@ -97,8 +97,8 @@ CREATE TABLE gpslog (
   filepath varchar(256) NOT NULL,
   filename varchar(256) NOT NULL,
   record_id int,
-  area_id int,
-  user_id int,
+  area_id int REFERENCES area(id),
+  user_id int REFERENCES user(id),
   date DATE,
   geojson MEDIUMTEXT
 );

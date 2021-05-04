@@ -1,16 +1,38 @@
-import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
-import Prefecture from '../pages/Prefecture.vue'
+import Vue from 'vue';
+import VueRouter, { RouteConfig } from 'vue-router';
+import Prefecture from '../pages/Prefecture.vue';
+import Main from '../pages/Main.vue';
 
-Vue.use(VueRouter)
+const VCalendar = require('v-calendar');
+const vSelect = require('vue-select');
 
-const routes: Array<RouteConfig> = [
-  {
-    path: '/',
-    name: 'Prefecture',
-    component: Prefecture
-  }
-];
+import { LMap, LTileLayer, LMarker, LPopup, LTooltip, LGeoJson } from "vue2-leaflet";
+import 'leaflet/dist/leaflet.css';
+const VueSlideBar = require('vue-slide-bar');
+
+Vue.use(VueRouter);
+
+Vue.use(VCalendar, {});
+Vue.component(vSelect);
+
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-geo-json', LGeoJson);
+Vue.component('l-marker', LMarker);
+Vue.component('l-tooltip', LTooltip);
+Vue.component('l-popup', LPopup);
+
+Vue.component('vue-slide-bar', VueSlideBar);
+
+const routes: Array<RouteConfig> = [{
+  path: '/',
+  name: 'Main',
+  component: Main
+}, {
+  path: '/prefecture',
+  name: 'Prefecture',
+  component: Prefecture
+}];
 
 const router = new VueRouter({
   mode: 'history',
@@ -18,4 +40,4 @@ const router = new VueRouter({
   routes
 });
 
-export default router
+export default router;

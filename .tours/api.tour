@@ -1,0 +1,141 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "API",
+  "steps": [
+    {
+      "file": "docker-compose.yml",
+      "description": "dbコンテナと同様に、ここではAPIサーバを提供するapiコンテナの定義をしています。",
+      "line": 17
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "`./docker/api/Dockerfile`をベースにコンテナを作成します。\r\n内容は薄いため、ここでは省略します。",
+      "line": 19
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "コンテナ内の3000番ポートを、コンテナ外の3012番ポートに紐付けています。\r\n\r\nしたがって、ブラウザから`http://localhost:3012`にアクセスすることで、APIサーバーと通信をすることが出来ます。",
+      "line": 20
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "コンテナの依存関係を定義しています。\r\n\r\napiコンテナは、dbコンテナ起動後に立ち上がるようになります。",
+      "line": 28
+    },
+    {
+      "file": "docker-compose.yml",
+      "description": "コンテナ起動時に実行するコマンドを指定しています。\r\n\r\n`/bin/sh -c \"～～～\"` \\\r\n～～～部分のコマンドを実行しています(おまじない)\r\n\r\n`yarn install --production=false` \\\r\n起動する度に、依存関係にあるパッケージをインストールします。\r\nインストール済のパッケージはスキップされます。\r\n\r\n`yarn nodemon` \\\r\nこれを解読するにはnodejsの設定ファイルを見る必要があります。\r\n\r\nそれではここからAPIのコードに入っていきます。",
+      "line": 32
+    },
+    {
+      "file": "api/package.json",
+      "description": "nodejsのプログラムを読むときは、まず`package.json`を見ます。\r\n\r\n主に、このプログラムの依存関係にあるパッケージと、起動スクリプトがまとまっています。",
+      "line": 1
+    },
+    {
+      "file": "api/package.json",
+      "description": "ここで起動スクリプトを定義しています。",
+      "line": 24
+    },
+    {
+      "file": "api/package.json",
+      "description": "`yarn nodemon`を実行するとこの行が参照され、内部では`nodemon`が実行されます。\r\n\r\n`nodemon`とは、ソースコードが変更されたことを自動的に検知し、コンパイルし直してくれるアプリケーションです。\r\n\r\n`nodemon`で実行されるコマンドを確認するために、さらに別のファイルを見ていきます。",
+      "line": 27
+    },
+    {
+      "file": "api/nodemon.json",
+      "description": "これが`nodemon`の設定ファイルです。\r\n\r\nこの行では、`api`ディレクトリ以下の任意のファイルを監視する設定をしています。",
+      "line": 2
+    },
+    {
+      "file": "api/nodemon.json",
+      "description": "`nodemon`がファイルの変更を検知した場合、`ts-node ./index.ts`コマンドを実行し直します。\r\n\r\n`ts-node`はTypescriptの実行コマンドです。\r\n\r\nさて、ここでエントリポイントが`./index.ts`であることが分かりました。\r\n\r\nそれでは`./index.ts`を見ていきます。",
+      "line": 4
+    },
+    {
+      "file": "api/index.ts",
+      "description": "ExpressはHTTPサーバのNodejs実装です。\r\n\r\n`/api`にアクセスがあった場合の処理を、`router`に投げます。\\\r\n`router`は、3行目でimportしているように、`./routes/index.ts`を指します。",
+      "line": 13
+    },
+    {
+      "file": "api/index.ts",
+      "description": "Expressの動作を、ポート番号3000番で開始します。\r\n\r\n次は`router`の中身を見ていきます。",
+      "line": 18
+    },
+    {
+      "file": "api/routes/index.ts",
+      "description": "今回の例では、gpslogを見ていきます。\r\n\r\n`/gpslog`にアクセスがあった場合、`Gpslog`に処理を投げます。\r\n\r\n`Gpslog`は5行目に書かれているとおり、`./gpslog/gpslogController.ts`の事です。\r\n\r\n`./gpslog/gpslogController.ts`を見ていきます。",
+      "line": 12
+    },
+    {
+      "file": "api/routes/gpslog/gpslogController.ts",
+      "description": "`/list`へのアクセス、つまり`http://localhost:3012/api/gpslog/list`へのアクセスがあった場合の処理を記載しています。\r\n\r\n`GetGpslog`の新しいインスタンスを作り、その中の`main()`関数を呼び出しています。",
+      "line": 13
+    },
+    {
+      "file": "api/routes/gpslog/get_gpslog.ts",
+      "description": "ここがデータベースにアクセスし、APIの応答として返している部分です。\r\n`this.getGpslog()`関数を同期的に呼び出し、戻り値があった場合にjson形式で返しています。",
+      "line": 16
+    },
+    {
+      "file": "api/routes/gpslog/get_gpslog.ts",
+      "description": "データベースへのアクセス箇所です。\r\n\r\n`Gpslog`モデルに対して`findAll`を発行し、\r\n- `id`と`date`列のみ抽出\r\n- 関連データベースである`User`と`Area`のデータを結合して返す\r\n処理をしています。\r\n\r\n`Gpslog`モデルは`../../models/index.ts`に記載があるため、見ていきます。",
+      "line": 33
+    },
+    {
+      "file": "api/models/index.ts",
+      "description": "`Gpslog`と`User`、`Area`データベースの関係を定義しています。",
+      "line": 38,
+      "selection": {
+        "start": {
+          "line": 27,
+          "character": 1
+        },
+        "end": {
+          "line": 39,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "api/models/index.ts",
+      "description": "`Gpslog`モデルの定義は`./gpslog.ts`に書いてあるため、読んでみましょう。",
+      "line": 40
+    },
+    {
+      "file": "api/models/gpslog.ts",
+      "description": "ここが`Gpslog`データベースの定義です。 \\\r\nMySQLの初期化コードと同じ内容を、Typescriptのクラスとして定義しています。\r\n\r\nそれでは、次は別のAPIを見ていきます。",
+      "line": 15
+    },
+    {
+      "file": "api/routes/gpslog/gpslogController.ts",
+      "description": "次は`/add`、つまり`http://localhost:3012/api/gpslog/add`にPOSTリクエストを送った場合の処理を見ていきます。\r\n\r\n引数に`upload.single('file')`が入っている点に注意してください。\r\n`multer`パッケージを使ってファイルの受信を行う場合に必要な設定となります。\r\n\r\nこちらも同じくAddGpslogクラスを読み解いていきます。",
+      "line": 23,
+      "selection": {
+        "start": {
+          "line": 21,
+          "character": 1
+        },
+        "end": {
+          "line": 24,
+          "character": 1
+        }
+      }
+    },
+    {
+      "file": "api/routes/gpslog/add_gpslog.ts",
+      "description": "ここでデータベースに新規要素を追加しています。\r\n\r\n`geojson`フィールドには、アップロードされたファイルをGeoJsonに変換し、`JSON.stringify()`関数を使ってJsonを文字列に変換したデータを登録しています。",
+      "line": 42,
+      "selection": {
+        "start": {
+          "line": 35,
+          "character": 1
+        },
+        "end": {
+          "line": 43,
+          "character": 1
+        }
+      }
+    }
+  ]
+}
