@@ -5,5 +5,12 @@ module.exports = {
         poll: true
       }
     }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        data: "@styles/variables.scss"
+      }
+    }
   }
 };
