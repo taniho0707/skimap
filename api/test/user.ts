@@ -1,8 +1,8 @@
 const request = require('supertest');
 const app = require('../index');
 
-describe('API prefectureのテスト', function() {
-    it('/api/prefecture/1 = 北海道', function(done) {
+describe('API prefectureのテスト', function () {
+    it('/api/prefecture/1 = 北海道', function (done) {
         this.timeout(60000);
         request(app)
             .get('/api/prefecture/1')
@@ -17,13 +17,13 @@ describe('API prefectureのテスト', function() {
             });
     });
 
-    it('/api/prefecture/ = 47都道府県リスト', function(done) {
+    it('/api/prefecture/ = 47都道府県リスト', function (done) {
         request(app)
             .get('/api/prefecture/')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(200, done)
-            .expect(function(res: any) {
+            .expect(function (res: any) {
                 if (res.body.data.length !== 47) {
                     throw new Error('都道府県リストが返ってこない');
                 }
@@ -31,8 +31,8 @@ describe('API prefectureのテスト', function() {
     });
 });
 
-describe('API userのテスト', function() {
-    it('/api/user/list はじめは空リスト', function(done) {
+describe('API userのテスト', function () {
+    it('/api/user/list はじめは空リスト', function (done) {
         request(app)
             .get('/api/user/list')
             .set('Accept', 'application/json')
@@ -43,7 +43,7 @@ describe('API userのテスト', function() {
             });
     });
 
-    it('/api/user/add 新規ユーザーの追加', function(done) {
+    it('/api/user/add 新規ユーザーの追加', function (done) {
         request(app)
             .post('/api/user/add')
             .send({
@@ -59,7 +59,7 @@ describe('API userのテスト', function() {
             });
     });
 
-    it('/api/user/list 新規ユーザーが登録されていることを確認', function(done) {
+    it('/api/user/list 新規ユーザーが登録されていることを確認', function (done) {
         request(app)
             .get('/api/user/list')
             .set('Accept', 'application/json')
@@ -75,7 +75,7 @@ describe('API userのテスト', function() {
             });
     });
 
-    it('/api/user/remove ユーザーを削除', function(done) {
+    it('/api/user/remove ユーザーを削除', function (done) {
         request(app)
             .post('/api/user/remove')
             .send({
@@ -91,7 +91,7 @@ describe('API userのテスト', function() {
             });
     });
 
-    it('/api/user/list ユーザーが削除されていることを確認', function(done) {
+    it('/api/user/list ユーザーが削除されていることを確認', function (done) {
         request(app)
             .get('/api/user/list')
             .set('Accept', 'application/json')
@@ -101,10 +101,26 @@ describe('API userのテスト', function() {
                 data: []
             });
     });
+
+    it('/api/user/add 新規ユーザーの追加', function (done) {
+        request(app)
+            .post('/api/user/add')
+            .send({
+                "name": "test_user2"
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
 });
 
-describe('API areaのテスト', function() {
-    it('/api/area/list はじめは空リスト', function(done) {
+describe('API areaのテスト', function () {
+    it('/api/area/list はじめは空リスト', function (done) {
         request(app)
             .get('/api/area/list')
             .set('Accept', 'application/json')
@@ -115,7 +131,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/add 新規スキー場の追加', function(done) {
+    it('/api/area/add 新規スキー場の追加', function (done) {
         request(app)
             .post('/api/area/add')
             .send({
@@ -133,7 +149,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/list 新規スキー場が登録されていることを確認', function(done) {
+    it('/api/area/list 新規スキー場が登録されていることを確認', function (done) {
         request(app)
             .get('/api/area/list')
             .set('Accept', 'application/json')
@@ -149,7 +165,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/1 登録したスキー場の詳細を確認', function(done) {
+    it('/api/area/1 登録したスキー場の詳細を確認', function (done) {
         request(app)
             .get('/api/area/1')
             .set('Accept', 'application/json')
@@ -167,7 +183,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/update スキー場を更新', function(done) {
+    it('/api/area/update スキー場を更新', function (done) {
         request(app)
             .post('/api/area/update')
             .send({
@@ -184,7 +200,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/1 更新したスキー場の詳細を確認', function(done) {
+    it('/api/area/1 更新したスキー場の詳細を確認', function (done) {
         request(app)
             .get('/api/area/1')
             .set('Accept', 'application/json')
@@ -202,7 +218,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/remove スキー場を削除', function(done) {
+    it('/api/area/remove スキー場を削除', function (done) {
         request(app)
             .post('/api/area/remove')
             .send({
@@ -218,7 +234,7 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/list スキー場が削除されていることを確認', function(done) {
+    it('/api/area/list スキー場が削除されていることを確認', function (done) {
         request(app)
             .get('/api/area/list')
             .set('Accept', 'application/json')
@@ -229,17 +245,35 @@ describe('API areaのテスト', function() {
             });
     });
 
-    it('/api/area/1 存在しないスキー場の詳細を要求するとエラーが返ってくることを確認', function(done) {
+    it('/api/area/1 存在しないスキー場の詳細を要求するとエラーが返ってくることを確認', function (done) {
         request(app)
             .get('/api/area/1')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
             .expect(400, done);
     });
+
+    it('/api/area/add 新規スキー場の追加', function (done) {
+        request(app)
+            .post('/api/area/add')
+            .send({
+                "name": "test_area2",
+                "prefecture": 1,
+                "official_url": "http://example.com",
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200, done)
+            .expect({
+                data: {
+                    success: true
+                }
+            });
+    });
 });
 
-describe('API gpslogのテスト', function() {
-    it('/api/gpslog/list はじめは空リスト', function(done) {
+describe('API gpslogのテスト', function () {
+    it('/api/gpslog/list はじめは空リスト', function (done) {
         request(app)
             .get('/api/gpslog/list')
             .set('Accept', 'application/json')
@@ -250,12 +284,12 @@ describe('API gpslogのテスト', function() {
             });
     });
 
-    it('/api/gpslog/add 新規Gpslogの追加', function(done) {
+    it('/api/gpslog/add 新規Gpslogの追加', function (done) {
         request(app)
             .post('/api/gpslog/add')
             .field("json", '{\
-                "area_id": 1,\
-                "user_id": 1,\
+                "area_id": 2,\
+                "user_id": 2,\
                 "date": "2018-03-11"\
             }')
             .attach("file", "./test/testfile1.gpx")
@@ -269,7 +303,7 @@ describe('API gpslogのテスト', function() {
             });
     });
 
-    it('/api/gpslog/list 新規Gpslogが登録されていることを確認', function(done) {
+    it('/api/gpslog/list 新規Gpslogが登録されていることを確認', function (done) {
         request(app)
             .get('/api/gpslog/list')
             .set('Accept', 'application/json')
@@ -279,15 +313,27 @@ describe('API gpslogのテスト', function() {
                 data: [
                     {
                         id: 1,
-                        area_id: 1,
-                        user_id: 1,
-                        date: '2018-03-11'
+                        date: '2018-03-11',
+                        area: {
+                            id: 2,
+                            prefecture: 1,
+                            area_id: null,
+                            name: "test_area2",
+                            fullname: null,
+                            official_url: "http://example.com",
+                        },
+                        user: {
+                            id: 2,
+                            name: "test_user2",
+                            email: null,
+                            hash: null,
+                        },
                     }
                 ]
             });
     });
 
-    it('/api/gpslog/remove Gpslogを削除', function(done) {
+    it('/api/gpslog/remove Gpslogを削除', function (done) {
         request(app)
             .post('/api/gpslog/remove')
             .send({
@@ -303,7 +349,7 @@ describe('API gpslogのテスト', function() {
             });
     });
 
-    it('/api/gpslog/list Gpslogが削除されていることを確認', function(done) {
+    it('/api/gpslog/list Gpslogが削除されていることを確認', function (done) {
         request(app)
             .get('/api/gpslog/list')
             .set('Accept', 'application/json')
